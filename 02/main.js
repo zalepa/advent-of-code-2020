@@ -1,8 +1,6 @@
-const fs = require('fs');
+const helpers = require('../helpers');
 
-const rawInput = fs.readFileSync(__dirname + '/input').toString().split(/\n/);
-
-const input = rawInput.slice(0, rawInput.length - 1).map(v => parseInt(v))
+const input = helpers.readlines(__dirname + '/input').map(v => parseInt(v))
 
 for(let i = 0; i < input.length; i++) {
   let a = input[i];
