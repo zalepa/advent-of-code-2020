@@ -35,20 +35,16 @@ const parse = (filename) => {
 };
 
 const find = (name, mapping) => {
-    
   const bag = mapping.find(b => b.bag === name);
+  if (bag.includes === null) return 0;
 
-  function size(type) {
-    const bag = mapping.find(b => b.bag === type);
-    if (bag.includes === null) return 0;
-    let count = 0;
-    bag.includes.forEach(b => {
-      count += (b.num + b.num*size(b.type))
-    })
-    return count;
-  }
+  let count = 0;
 
-  return size(name)
+  bag.includes.forEach(b => {
+    count += (b.num + b.num*find(b.type, mapping))
+  });
+
+  return count;
 }
 
 
