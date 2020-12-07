@@ -8,8 +8,8 @@ exports.readlines = function(filename) {
   const strInput = rawInput.toString();
   const output = strInput.split(/\n/);
   const lines = output.length - 1;
-
-  if (output[lines] === undefined) {
+  
+  if (output[lines] === undefined || output[lines] === '') {
     return output.slice(0, lines);
   } else {
     return output;
