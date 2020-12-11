@@ -20,6 +20,14 @@ exports.readlines = function(filename) {
   }
 }
 
+/* 
+  Reads a file, converts to string and splits by newline characters and
+  maps to numbers
+*/
+exports.readNumbers = function(filename) {
+  return exports.readlines(filename).map(i => parseInt(i));
+}
+
 exports.debug = function(msg) {
   if (exports.DEBUG) {
     console.log(msg)
