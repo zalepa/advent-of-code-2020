@@ -1,21 +1,11 @@
-const assert = require('assert');
-const { inspect } = require('util');
 const helpers = require('../helpers');
 
 const getNumberOfOccupiedSeats = (row, column, map, debug) => {
   let occupied = 0;
 
-  let currentCell = map[row][column];
-
-  debug && console.log(row, column, currentCell);
-
-  let acc = '';
-  if (currentCell === '.') return currentCell;
-  
-
   for (let i = row - 1; i >= 0; i--) { // Travel N (column fixed)
     let inspectedCell = map[i][column];
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -24,7 +14,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
  
   for (let i = row + 1; i < map.length; i++) { // Travel S (column fixed)
     let inspectedCell = map[i][column];
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -32,7 +22,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = column - 1; i >= 0; i--) { // Travel W (row fixed)
     let inspectedCell = map[row][i];
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -40,7 +30,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = column + 1; i <= map[row].length; i++) { // Travel E (row fixed)
     let inspectedCell = map[row][i];
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -48,8 +38,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = row - 1, j = column + 1; i >= 0; i--, j++) { // Travel NW
     let inspectedCell = map[i][j];
-    if (inspectedCell === undefined) break;
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -57,8 +46,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = row - 1, j = column - 1; i >= 0; i--, j--) { // Travel NE
     let inspectedCell = map[i][j];
-    if (inspectedCell === undefined) break;
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -66,8 +54,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = row + 1, j = column - 1; i < map.length; i++, j--) { // Travel SW
     let inspectedCell = map[i][j];
-    if (inspectedCell === undefined) break;
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -75,8 +62,7 @@ const getNumberOfOccupiedSeats = (row, column, map, debug) => {
 
   for (let i = row + 1, j = column + 1; i < map.length; i++, j++) { // Travel SE
     let inspectedCell = map[i][j];
-    if (inspectedCell === undefined) break;
-    if (inspectedCell !== '.') {  // found first occupied seat
+    if (inspectedCell !== '.') {
       if (inspectedCell === '#') occupied += 1;
       break 
     }
@@ -91,13 +77,9 @@ const process = (map, debug) => {
       
       const occupiedSeats = getNumberOfOccupiedSeats(i, j, map);
     
-      if (element === '#' && occupiedSeats >= 5) {
-        return 'L'
-      } else if (element === 'L' && occupiedSeats === 0) {
-        return '#'
-      }
-
-
+      if (element === '#' && occupiedSeats >= 5) return 'L'
+      else if (element === 'L' && occupiedSeats === 0) return '#'
+      
       return element;
     }).join('');
 
@@ -105,8 +87,6 @@ const process = (map, debug) => {
 
   return nextMap
 }
-
-
 
 (function main() {
   const lines = helpers.readlines(`${__dirname}/input.txt`);
