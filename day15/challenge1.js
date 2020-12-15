@@ -23,4 +23,4 @@ for (let i = seq.length; i < GOAL + 1; i++) {
   
 }
 
-console.log(seq[2019]);
+console.log(seq[GOAL - 1]);
