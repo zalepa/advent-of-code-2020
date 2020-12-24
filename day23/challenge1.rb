@@ -11,7 +11,7 @@ class Game
     @higestCup = @pieces.sort.last
     @currentMove = 1
     @next_cups = nil
-    @currentCup = @pieces.first
+    @current_cup = @pieces.first
   end
 
   def answer
@@ -31,12 +31,12 @@ class Game
     
     select_destination_cup
 
-    puts "destination: #{@destinationCup}" if debug
+    puts "destination: #{@destination_cup}" if debug
 
     @next_cups.each { |e| @pieces.delete_at(@pieces.index(e))}
 
-    first_half = @pieces[0..(@pieces.index(@destinationCup))]
-    second_half  = @pieces[(@pieces.index(@destinationCup) + 1)..-1]
+    first_half = @pieces[0..(@pieces.index(@destination_cup))]
+    second_half  = @pieces[(@pieces.index(@destination_cup) + 1)..-1]
 
     @pieces = first_half.concat(@next_cups).concat(second_half)
 
@@ -47,18 +47,18 @@ class Game
   private
 
   def select_destination_cup
-    @destinationCup = @currentCup - 1
-    while @next_cups.include?(@destinationCup) or @destinationCup < @lowestCup
-      @destinationCup -= 1
-      if @destinationCup < @lowestCup
-        @destinationCup = @higestCup
+    @destination_cup = @current_cup - 1
+    while @next_cups.include?(@destination_cup) or @destination_cup < @lowestCup
+      @destination_cup -= 1
+      if @destination_cup < @lowestCup
+        @destination_cup = @higestCup
       end
     end
   end
 
   def pickup_next_cups
 
-    index_of_current_cup = @pieces.index(@currentCup)
+    index_of_current_cup = @pieces.index(@current_cup)
 
     if index_of_current_cup >= (@pieces.length - 3)  
       if index_of_current_cup ==  @pieces.length - 1
@@ -95,11 +95,11 @@ class Game
 
   def increment_cup_position
     
-    index_of_current_position = @pieces.index(@currentCup)
+    index_of_current_position = @pieces.index(@current_cup)
     if (index_of_current_position == @pieces.length - 1)
-      @currentCup = @pieces[0]
+      @current_cup = @pieces[0]
     else
-      @currentCup = @pieces[index_of_current_position + 1]
+      @current_cup = @pieces[index_of_current_position + 1]
     end
   end
 
@@ -111,7 +111,7 @@ class Game
   end
 
   def decorate_element(el, idx)
-    idx == @pieces.index(@currentCup) ? "(#{el})" : el
+    idx == @pieces.index(@current_cup) ? "(#{el})" : el
   end
 
 
